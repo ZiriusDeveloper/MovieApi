@@ -5,6 +5,7 @@ import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
@@ -86,7 +87,8 @@ public class MovieApi {
 
     @PUT
     @Produces(MediaType.APPLICATION_JSON)
-    public ResponseData updateMovieToDB( @HeaderParam("request") String request ){
+    @Path("/{id}")
+    public ResponseData updateMovieToDB( @HeaderParam("request") String request , @PathParam("id") Long id ){
         
         ResponseData responseData = new ResponseData() ;
         try {
@@ -94,6 +96,7 @@ public class MovieApi {
 
             Gson gson = new Gson() ;
             Movie movie = gson.fromJson( request , Movie.class ) ;
+            movie.setId(id);
             
             if( movieService.updateMovieToDB(movie) ){
                 responseData.setResponseCode( 202   );
