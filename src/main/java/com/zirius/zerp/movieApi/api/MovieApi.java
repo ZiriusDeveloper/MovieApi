@@ -40,6 +40,7 @@ public class MovieApi {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
+    @Path("/online")
     public ResponseData getMovieFromOmdbApi( @QueryParam("title") String title , @HeaderParam("year") int year ,  @HeaderParam("type") String type ){
         
         ResponseData responseData = new ResponseData() ;
