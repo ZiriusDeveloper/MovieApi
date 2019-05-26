@@ -8,8 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
-
-import javax.persistence.PostUpdate;
 import java.util.List;
 
 @RestController
@@ -27,9 +25,10 @@ public class MovieApiController {
      * @return list of movies wrapped in response object
      */
     @GetMapping("/localdb")
-    public ResponseEntity<List<MovieDto>> getFromLocalDB(@RequestHeader(name = "type", required = true) String type,
-                                                    @RequestHeader(name = "year", required = true) Integer year) {
-        return new ResponseEntity<>(movieApiService.getMovieInfo("", type, year, true), HttpStatus.OK);
+    public ResponseEntity<List<Movie>> getFromLocalDB(@RequestHeader(name="title",required = false) String title,
+                                                      @RequestHeader(name = "type", required = true) String type,
+                                                      @RequestHeader(name = "year", required = true) Integer year) {
+        return new ResponseEntity<>(movieApiService.getMovieInfo(title, type, year), HttpStatus.OK);
     }
 
     /**
@@ -41,10 +40,10 @@ public class MovieApiController {
      * @return
      */
     @GetMapping("/omdb")
-    public ResponseEntity<List<MovieDto>> getFromOMDB(@RequestHeader(name = "title", required = true) String movieTitle,
+    public ResponseEntity<String> getFromOMDB(@RequestHeader(name = "title", required = true) String movieTitle,
                                                       @RequestHeader(name = "type", required = true) String type,
                                                       @RequestHeader(name = "year", required = true) Integer year) {
-        return new ResponseEntity<>(movieApiService.getMovieInfo("", type, year, true), HttpStatus.OK);
+        return new ResponseEntity<>(movieApiService.getOMDBMovieInfo(movieTitle, type, year), HttpStatus.OK);
     }
 
     /**
@@ -54,8 +53,10 @@ public class MovieApiController {
      * @return response entity with the information of created movie and status of the operation
      */
     @PostMapping("/localdb/add")
-    public ResponseEntity<Void> addMovieInformation( @RequestHeader(name = "movie" , required = true) Movie movie) {
-        return null;
+    public ResponseEntity<Integer> addMovieInformation( @RequestBody Movie movie) {
+        // make sure that the movie id is not set
+        movie.setId(null);
+        return new ResponseEntity<>(movieApiService.saveMovie(movie),HttpStatus.CREATED);
     }
 
     /**
@@ -65,8 +66,15 @@ public class MovieApiController {
      * @return response entity with the status of the operation
      */
     @PostMapping("/localdb/update")
-    public ResponseEntity<Void> updateMovieInformation( @RequestHeader(name = "movie", required = true) Movie movie) {
-        return null;
+    public ResponseEntity<Void> updateMovieInformation( @RequestBody Movie movie) {
+
+        if(movie.getId() != null) {
+            movieApiService.saveMovie(movie);
+        } else {
+            throw new RuntimeException("Movie id shouldn't be null for updating");
+        }
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }
