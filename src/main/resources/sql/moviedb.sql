@@ -1,1 +1,0 @@
-CREATE TABLE `test`.`movies` ( `id` INT(10) NOT NULL , `title` VARCHAR(100) NOT NULL , `year` DATE NOT NULL , `imdbid` VARCHAR(10) NOT NULL , `type` VARCHAR(10) NOT NULL ) ENGINE = InnoDB;
