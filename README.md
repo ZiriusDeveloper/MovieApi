@@ -47,6 +47,7 @@ http://localhost:8080/movies/omdblist/create
 Sample post request
 
 {
+	"id" : 1,
 	"title" : "Batman",
 	"type" : "movie",
 	"year" : "1994",
