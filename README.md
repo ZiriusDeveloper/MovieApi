@@ -42,7 +42,7 @@ Sample post request
 ```
 This API will update movie to DB
 
-http://localhost:8080/movies/omdblist/create
+http://localhost:8080/movies/omdblist/update
 
 Sample post request
 
