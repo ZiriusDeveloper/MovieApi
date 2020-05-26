@@ -11,7 +11,7 @@ This application consist of four RestFull services
 ##Note
 
 ```
-Each request needs authorization, Please use the below credentials
+Every request is authenticated, Please use the below credentials
 
 User - admin
 Password - admin@123
