@@ -45,7 +45,7 @@ public class MovieServiceImpl implements MovieService {
 	public ResponseEntity<?> updateMovie(MovieDetails movieDetails) {
 		try {
 			movieRepo.save(movieDetails);
-			return new ResponseEntity<>("Movie created successfully", HttpStatus.OK);
+			return new ResponseEntity<>("Movie updated successfully", HttpStatus.OK);
 		} catch(Exception ex) {
 			logger.error(ex.getMessage());
 			return new ResponseEntity<>("Internal Server Error", HttpStatus.BAD_REQUEST);

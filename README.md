@@ -11,7 +11,7 @@ This application consist of four RestFull services
 ##Note
 
 ```
-Each request needs a authorization, use the below credentials
+Each request needs authorization, Please use the below credentials
 
 User - admin
 Password - admin@123
@@ -53,6 +53,24 @@ Sample post request
 	"year" : "1994",
 	"poster" : "test"
 }
+
+```
+
+##Read a movies from DB
+
+```
+This API will read movie to DB
+
+http://localhost:8080/movies/list
+
+```
+
+##Read a movies from public API
+
+```
+This API will read movie to DB
+
+http://localhost:8080/movies/omdblist
 
 ```
 
