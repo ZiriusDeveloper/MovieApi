@@ -1,5 +1,5 @@
-Create database movie_collection;
-use movie_collection;
+Create database movie_catalog;
+use movie_catalog;
 
 
 DROP TABLE IF EXISTS `movie_details`;
